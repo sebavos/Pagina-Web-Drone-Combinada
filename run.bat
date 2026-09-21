@@ -9,7 +9,9 @@ echo.
 
 :: Detectar el ejecutable de Python disponible
 set PYTHON_EXE=
-if exist "%LOCALAPPDATA%\Programs\Python\Python314\python.exe" (
+if exist "%LOCALAPPDATA%\Programs\Python\Python311\python.exe" (
+    set "PYTHON_EXE=%LOCALAPPDATA%\Programs\Python\Python311\python.exe"
+) else if exist "%LOCALAPPDATA%\Programs\Python\Python314\python.exe" (
     set "PYTHON_EXE=%LOCALAPPDATA%\Programs\Python\Python314\python.exe"
 ) else if exist "%LOCALAPPDATA%\Programs\Python\Launcher\py.exe" (
     set "PYTHON_EXE=%LOCALAPPDATA%\Programs\Python\Launcher\py.exe"

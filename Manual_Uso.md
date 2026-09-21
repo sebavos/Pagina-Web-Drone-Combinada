@@ -50,6 +50,55 @@ Estación Terrena de Control en Tiempo Real (Ground Control Station - GCS) desar
 
 ---
 
+## 👁️ Sistema de Visión IA YOLOv8 & Streaming FPV
+
+1. Dirígete a la pestaña **`👁️ Visión IA & Simulación Unreal`**.
+2. **Seleccionar Entrada de Video**:
+   - **Objetivo Sintético (Test)**: Ideal para pruebas de escritorio sin hardware conectado; genera un objetivo móvil 3D con retícula táctica y métricas.
+   - **Dron Real RTSP**: Transmite desde la Jetson Nano del dron (`rtsp://192.168.14.7:8554/cam0`).
+   - **Simulación Unreal**: Ingiere el stream virtual generado por Unreal Engine (`rtsp://127.0.0.1:8554/live` o virtual camera).
+   - **Webcam USB / OBS**: Usa cualquier dispositivo de captura conectado localmente.
+3. **Ajuste de Inferencia YOLO**:
+   - Alterna entre el modelo especializado en drones (`drone_finetuned-3`), el modelo stock de personas (`yolov8n`), o inferencia dual.
+   - Ajusta el umbral de confianza mínimo (10% a 90%) en caliente con el control deslizante.
+   - Activa o silencia las alertas de voz (TTS).
+4. **Mini FPV Flotante (PiP)**:
+   - Presiona el botón **`📷 Mini FPV`** en el PFD o en el panel de visión para mantener visible la cámara mientras navegas por otras pestañas.
+
+---
+
+## 🎮 Simulación en Unreal Engine con PX4 SITL & Seguimiento PID
+
+1. **Vincular Simulación**:
+   - Haz clic en el botón superior **`🎮 Preset Unreal SITL`**.
+   - Esto autoconfigura la conexión MAVLink en el puerto **UDP 14550** y conmuta la fuente de video a Unreal Engine.
+2. **Modos de Seguimiento Visual (Image PID)**:
+   - **OFF**: Visualización pasiva de cámara y detecciones.
+   - **SIM (Visual)**: El PID calcula los errores de centrado horizontal ($e_x$), vertical ($e_y$) y distancia ($e_{area}$), actualizando el HUD táctico y los indicadores de velocidad **sin mover los motores**.
+   - **ACTIVE TRACK (MAVLink)**: El sistema envía activamente comandos de velocidad (`SET_POSITION_TARGET_LOCAL_NED`) al autopiloto en modo `OFFBOARD` / `GUIDED` para mantener el dron apuntando y centrado hacia el objetivo.
+3. **Seguridad del Seguimiento**:
+   - **Watchdog de Pérdida**: Si el objetivo sale del campo visual por más de 3.0 segundos, las velocidades se resetean automáticamente a cero (el dron mantiene posición).
+   - **Parada de Emergencia**: El botón **`🛑 CORTE MOTOR`** o la tecla **`Espacio`** fuerzan el desarmado inmediato del vehículo.
+
+---
+
+## 🗺️ Ejecución Autónoma de Misiones y Setpoints en Unreal Engine (Parque O'Higgins)
+
+1. **Abrir el Proyecto Unreal**:
+   - Haz doble clic en el acceso directo **`iniciar_unreal_parque_ohiggins.bat`** (en tu Escritorio o en la raíz).
+   - Abrirá Unreal Engine 5.8 con el proyecto **`MyProject`**, cargando el mapa 3D fotorrealista de **Parque O'Higgins** y el dron **Holybro X650**.
+   - En Unreal Editor, presiona el botón verde **Play (Alt+P)** para arrancar el entorno de simulación AirSim RPC.
+2. **Planificar la Ruta de Vuelo**:
+   - En la GCS, abre la pestaña **`🗺️ Planificador de Misión (Setpoints)`**.
+   - Haz clic sobre el mapa en los puntos deseados de Parque O'Higgins. El sistema creará automáticamente los waypoints numerados con altitud y velocidad configurables.
+3. **Ejecutar la Misión Virtual**:
+   - Presiona el botón cyan **`🎮 Volar en Unreal (AirSim)`**.
+   - El dron Holybro X650 despegará de inmediato en Parque O'Higgins y navegará secuencialmente cada setpoint.
+   - En la barra superior verás en vivo el **punto actual**, la **distancia restante**, el **porcentaje de avance** y la posición del dron moviéndose en tiempo real sobre el mapa Leaflet y los instrumentos PFD.
+   - Si deseas abortar en cualquier momento, presiona **`🛑 Abortar Simulador`** para frenar y mantener el dron en hover.
+
+---
+
 ## ⚠️ Advertencia de Seguridad Crítica
 
 * Si vas a realizar pruebas en el **Banco de Actuadores (Motores)**, **retira las hélices físicamente** del dron para evitar accidentes.

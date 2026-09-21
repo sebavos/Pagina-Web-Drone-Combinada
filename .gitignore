@@ -21,5 +21,20 @@ desktop.ini
 *.swp
 *.swo
 
-# Logs temporales (opcional: preservar telemetria_escritorio.csv como muestra)
+# Exclusión de fotos e imágenes (excepto logo institucional del frontend)
+*.jpg
+*.jpeg
+*.png
+!static/logo_ubo.png
+*.bmp
+*.webp
+
+# Archivos comprimidos y pesados
+*.zip
+*.rar
+*.7z
+*.tar.gz
+
+# Logs temporales
 *.log
+

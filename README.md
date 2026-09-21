@@ -92,6 +92,21 @@ graph TD
 ### 8. Reproductor de Logs / Simulador CSV
 - Reproducción paso a paso de sesiones grabadas ([telemetria_escritorio.csv](telemetria_escritorio.csv)) con control de velocidad (0.5x, 1x, 2x, 4x) para desarrollo sin hardware conectado.
 
+### 9. Visión Artificial con YOLOv8 & Streaming FPV en Vivo
+- **Transmisión de Video Multifuente**: Soporte para streaming RTSP desde el dron real (Jetson Nano DevKit), streaming desde simulador Unreal Engine, webcams USB locales y generador de objetivos sintéticos 3D para pruebas sin cámara física.
+- **Inferencia de IA y Tracking en Tiempo Real**: Inferencia YOLOv8 con tracking persistente (`ByteTrack`) para detección de drones y personas, cálculo de confianza y retícula táctica estilo DJI con recuadros angulares.
+- **Alertas Auditivas Configurables**: Sistema de síntesis de voz y audio con cooldown anti-spam ante detección de amenazas o drones objetivo.
+- **Mini Visor Flotante (Picture-in-Picture - PiP)**: Permite monitorear el video de la cámara en vivo mientras se opera en las pestañas de PFD, sensores o mapas de waypoints.
+
+### 10. Simulación en Unreal Engine con PX4 SITL & Seguimiento PID en Bucle Cerrado
+- **Integración con Unreal Engine**: Flujo directo de telemetría y video para entornos simulados en Unreal Engine (AirSim, Project Pegasus, simulaciones fotorrealistas personalizadas) mediante PX4 SITL sobre UDP 14550 / 14540.
+- **Controlador PID de Imagen Multi-Eje**: Control de guiñada (Yaw Rate), altitud ($V_z$) y distancia/avance ($V_x$) basado en el error normalizado de posición y área de la caja delimitadora del objetivo.
+- **Tres Modos de Operación**:
+  - `OFF`: Visualización pasiva de cámara y detecciones.
+  - `SIM (Visual)`: Cálculo en vivo de errores y velocidades del PID superpuesto en el HUD sin accionar actuadores.
+  - `ACTIVE TRACK (MAVLink)`: Transmisión continua de setpoints de velocidad (`SET_POSITION_TARGET_LOCAL_NED`) al autopiloto en modo `OFFBOARD` / `GUIDED` con watchdog de seguridad a 3.0s si el objetivo se pierde.
+- **Sintonización en Caliente**: Ajuste interactivo de ganancias $K_p, K_i, K_d$, bandas muertas y rampas de aceleración desde la interfaz web.
+
 ---
 
 ## Especificaciones de Hardware (Holybro X650)
@@ -162,6 +177,13 @@ Para respaldar o actualizar cambios en GitHub, haz doble clic en `push_to_github
 | `POST` | `/api/parametro/<nombre>/<valor>` | Escribe un parámetro en el Pixhawk |
 | `POST` | `/api/simulacion/<iniciar|detener>` | Controla el modo simulador CSV |
 | `GET` | `/api/descargar_log` | Descarga el archivo CSV registrado |
+| `GET` | `/video_feed` | Stream de video MJPEG FPV en vivo con overlay táctico |
+| `GET` | `/api/vision/estado` | Retorna estado de cámara, modelo YOLO, tracking y PID |
+| `POST` | `/api/vision/config` | Configura fuente de video, modelo YOLO y confianza |
+| `POST` | `/api/vision/tracking/modo` | Cambia el modo de seguimiento (`OFF`, `SIM`, `ACTIVE_TRACK`) |
+| `POST` | `/api/vision/tracking/pid` | Actualiza ganancias en caliente del PID de imagen |
+| `POST` | `/api/vision/tracking/reset` | Resetea a cero los integradores del PID |
+| `POST` | `/api/simulacion/unreal_preset` | Configura 1-clic la conexión PX4 SITL y video Unreal |
 
 ---
 

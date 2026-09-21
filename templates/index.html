@@ -161,6 +161,74 @@ header {
     background: #dc2626;
 }
 
+/* BOTONES DE CONTROL DE VUELO RÁPIDO (ARM / TAKEOFF / LAND / RTL) */
+.flight-actions-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 8px;
+}
+.btn-flight {
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 800;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.btn-flight:active { transform: scale(0.96); }
+.btn-arm {
+    background: linear-gradient(135deg, #e11d48, #be123c);
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(225, 29, 72, 0.4);
+    border: 1px solid #f43f5e;
+}
+.btn-arm:hover {
+    background: #f43f5e;
+    box-shadow: 0 0 15px rgba(244, 63, 94, 0.6);
+}
+.btn-arm.armed {
+    background: linear-gradient(135deg, #15803d, #166534);
+    box-shadow: 0 0 10px rgba(34, 197, 94, 0.4);
+    border: 1px solid #22c55e;
+}
+.btn-takeoff {
+    background: linear-gradient(135deg, #0284c7, #0369a1);
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(2, 132, 199, 0.4);
+    border: 1px solid #38bdf8;
+}
+.btn-takeoff:hover {
+    background: #0ea5e9;
+    box-shadow: 0 0 15px rgba(14, 165, 233, 0.6);
+    transform: translateY(-1px);
+}
+.btn-land {
+    background: linear-gradient(135deg, #d97706, #b45309);
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(217, 119, 6, 0.4);
+    border: 1px solid #f59e0b;
+}
+.btn-land:hover {
+    background: #f59e0b;
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.6);
+}
+.btn-rtl {
+    background: #334155;
+    color: #e2e8f0;
+    border: 1px solid #64748b;
+}
+.btn-rtl:hover {
+    background: #475569;
+    color: #ffffff;
+}
+
 .sim-switch {
     display: flex;
     align-items: center;
@@ -621,6 +689,135 @@ header {
     flex-wrap: wrap;
 }
 
+/* =========================================================
+   ESTILOS SUBSISTEMA DE VISIÓN IA, FPV & SIMULACIÓN UNREAL
+========================================================= */
+.vision-main-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 14px;
+}
+@media (max-width: 1100px) {
+    .vision-main-grid { grid-template-columns: 1fr; }
+}
+.fpv-viewport-box {
+    position: relative;
+    width: 100%;
+    min-height: 400px;
+    max-height: 520px;
+    background: #000000;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+}
+.fpv-main-stream {
+    width: 100%;
+    height: 100%;
+    max-height: 520px;
+    object-fit: contain;
+}
+.fpv-crosshair-hud {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+}
+.crosshair-center {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 28px; height: 28px;
+    border: 1px solid rgba(0, 242, 254, 0.4);
+    border-radius: 50%;
+}
+.hud-target-info {
+    position: absolute;
+    top: 12px; left: 14px;
+    background: rgba(6, 11, 22, 0.75);
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--cyan);
+}
+.source-radio-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.source-radio-box:hover {
+    border-color: var(--cyan);
+    background: rgba(0, 242, 254, 0.05);
+}
+.pid-bar-track {
+    position: relative;
+    width: 100%;
+    height: 10px;
+    background: #090e1a;
+    border-radius: 5px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+.pid-center-marker {
+    position: absolute;
+    top: 0; bottom: 0; left: 50%;
+    width: 2px;
+    background: #ffffff;
+    z-index: 2;
+}
+.pid-bar-fill {
+    height: 100%;
+    background: var(--cyan);
+    transition: width 0.1s ease;
+}
+.pip-video-box {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 320px;
+    background: var(--bg-panel);
+    border: 2px solid var(--cyan);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 15px var(--cyan-glow);
+    z-index: 1000;
+    overflow: hidden;
+}
+.pip-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(6, 11, 22, 0.95);
+    padding: 6px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--cyan);
+    border-bottom: 1px solid var(--border-color);
+}
+.pip-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 12px;
+    cursor: pointer;
+}
+.pip-btn:hover { color: #ffffff; }
+.pip-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+}
+
 /* FOOTER */
 footer {
     margin-top: 20px;
@@ -657,8 +854,11 @@ footer {
 
         <!-- BARRA DE CONEXIÓN DINÁMICA -->
         <div class="connection-bar">
+            <button id="btnConectarSim" class="btn-connect" onclick="conectarSimulacionDirecta()" style="background: linear-gradient(135deg, #7c3aed, #2563eb); border: 1px solid #c084fc; font-weight: 700; box-shadow: 0 0 10px rgba(124, 58, 237, 0.5);" title="Conectar directo a la Simulación Unreal Engine (AirSim RPC 41451)">🎮 Conectar Simulación</button>
             <div style="display:flex; align-items:center; gap:6px;">
                 <select id="puertoSelect" class="conn-select" title="Seleccionar Puerto Serial o SITL" onchange="onPuertoSelectChange()">
+                    <option value="AIRSIM_RPC" selected>🎮 Simulación Unreal (AirSim RPC)</option>
+                    <option value="udpin:0.0.0.0:14550">🎮 Simulación PX4 SITL (UDP 14550)</option>
                     <option value="COM7">COM7 (Pixhawk USB)</option>
                     <option value="CUSTOM">✏️ Otro / Escribir puerto...</option>
                 </select>
@@ -673,6 +873,14 @@ footer {
             <button class="btn-connect" onclick="refrescarPuertos()" style="background:#1e293b;" title="Escanear Puertos">🔄 Escanear</button>
             <button id="btnWebSerial" class="btn-connect" onclick="solicitarPuertoWebSerial()" style="background:#0f172a; border:1px solid var(--cyan);" title="Seleccionar Dispositivo Serial con Web Serial API (Navegador)">🔌 Web Serial</button>
             
+            <!-- ACCIONES RÁPIDAS DE VUELO DIRECTAS DESDE LA WEB -->
+            <div class="flight-actions-bar">
+                <button id="btnArmQuick" class="btn-flight btn-arm" onclick="ejecutarArmarDesarmar()" title="Armar o Desarmar motores MAVLink">⚡ ARMAR</button>
+                <button id="btnTakeoffQuick" class="btn-flight btn-takeoff" onclick="ejecutarDespegue()" title="Despegar a altitud segura (Takeoff)">🛫 DESPEGAR</button>
+                <button id="btnLandQuick" class="btn-flight btn-land" onclick="ejecutarAterrizaje()" title="Aterrizar en la posición actual (Land)">🛬 ATERRIZAR</button>
+                <button id="btnRtlQuick" class="btn-flight btn-rtl" onclick="ejecutarRTL()" title="Retorno al punto de despegue (RTL)">🏠 RTL</button>
+            </div>
+
             <div class="sim-switch" onclick="toggleSimulacion()">
                 <span id="simLed">⚪</span> <span id="simTexto">Simulador CSV</span>
             </div>
@@ -687,6 +895,7 @@ footer {
         <div class="badge" id="badge-gps">GPS: SIN FIX (0 Sats)</div>
         <div class="badge" id="badge-bateria">BAT: 0.0V (0%) | 0.0V/c</div>
         <div class="badge" id="badge-vibe" style="color:var(--green);">VIBE: ÓPTIMO</div>
+        <div class="badge offline" id="badge-vision">👁️ VISIÓN OFF</div>
     </div>
 </header>
 
@@ -702,6 +911,7 @@ footer {
     <button class="tab-btn" onclick="cambiarPestana('tab-mision', this)">🗺️ Planificador de Misión (Setpoints)</button>
     <button class="tab-btn" onclick="cambiarPestana('tab-consola', this)">💻 Consola MAVLink</button>
     <button class="tab-btn" onclick="cambiarPestana('tab-simulador', this)">📁 Reproductor de Logs</button>
+    <button class="tab-btn" onclick="cambiarPestana('tab-vision', this)" style="background:rgba(0, 242, 254, 0.08); border-color:var(--cyan); color:#00f2fe;">👁️ Visión IA & Simulación Unreal</button>
 </nav>
 
 <!-- =========================================================
@@ -765,6 +975,7 @@ footer {
                 <button class="btn-mode" onclick="enviarCambioModo('STABILIZED')">STABILIZE</button>
                 <button class="btn-mode" onclick="enviarCambioModo('AUTO_RTL')">🏠 RTL</button>
                 <button class="btn-mode" onclick="enviarCambioModo('AUTO_LAND')">🛬 LAND</button>
+                <button class="btn-mode" onclick="togglePiPVideo()" style="border-color:var(--cyan); color:var(--cyan);" title="Alternar mini cámara FPV flotante">📷 Mini FPV</button>
                 <button class="btn-emergency" onclick="paradaEmergencia()">🛑 CORTE MOTOR</button>
             </div>
         </div>
@@ -1094,6 +1305,8 @@ footer {
                 <button class="btn-connect" onclick="subirMisionAutopiloto()" style="background:linear-gradient(135deg, #10b981, #059669);" title="Enviar Misión al Pixhawk vía MAVLink">🚀 Enviar al Dron</button>
                 <button class="btn-connect" onclick="descargarMisionAutopiloto()" style="background:#1e293b;" title="Descargar Misión guardada en el Pixhawk">📥 Descargar Dron</button>
                 <button class="btn-connect" onclick="iniciarMisionAuto()" style="background:linear-gradient(135deg, #f59e0b, #d97706);" title="Cambiar a Modo AUTO para ejecutar la misión">▶ Iniciar (AUTO)</button>
+                <button class="btn-connect" onclick="ejecutarMisionUnreal()" style="background:linear-gradient(135deg, #06b6d4, #2563eb); border:1px solid #00f2fe; box-shadow:0 0 10px rgba(0,242,254,0.35); font-weight:700;" title="Ejecutar misión de setpoints de forma autónoma en Unreal Engine (Parque O'Higgins con Holybro X650)">🎮 Volar en Unreal (AirSim)</button>
+                <button class="btn-connect" id="btnAbortarSim" onclick="abortarMisionUnreal()" style="background:#dc2626; display:none; font-weight:700;" title="Abortar misión en Unreal">🛑 Abortar Simulador</button>
                 <button class="btn-connect" onclick="exportarPlanQGC()" style="background:#0284c7;" title="Exportar Misión como archivo .plan para QGroundControl">💾 Exportar QGC .plan</button>
                 <label class="btn-connect" style="background:#475569; cursor:pointer;" title="Importar archivo .plan o .waypoints de QGroundControl">
                     📂 Importar QGC
@@ -1113,6 +1326,26 @@ footer {
                 <span>📍 Setpoints: <strong id="mision-count" style="color:#ffffff;">0</strong></span>
                 <span>📏 Distancia Total: <strong id="mision-distancia" style="color:var(--cyan);">0.0 m</strong></span>
                 <span>⏱ Tiempo Est.: <strong id="mision-tiempo" style="color:var(--amber);">00:00</strong></span>
+            </div>
+        </div>
+
+        <!-- PANEL DE MONITOREO EN VIVO: UNREAL ENGINE (PARQUE O'HIGGINS) -->
+        <div id="panel-sim-mision" style="display:none; padding:12px 16px; background:rgba(15, 23, 42, 0.95); border:1px solid var(--cyan); border-radius:8px; margin-top:8px; box-shadow:0 0 15px rgba(0,242,254,0.15);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:8px;">
+                <div style="font-size:12px; font-weight:700; color:var(--cyan); display:flex; align-items:center; gap:8px;">
+                    <span class="status-dot green"></span>
+                    <span>MISIÓN AUTÓNOMA EN UNREAL ENGINE (PARQUE O'HIGGINS - HOLYBRO X650)</span>
+                </div>
+                <div style="font-size:12px; font-weight:600; color:var(--text-dim);" id="sim-mision-status-txt">Preparando...</div>
+            </div>
+            <div style="display:flex; gap:16px; align-items:center; font-size:12px; margin-bottom:8px; flex-wrap:wrap;">
+                <span>Punto Activo: <strong id="sim-mision-punto" style="color:#ffffff;">0 / 0</strong></span>
+                <span>Tipo: <strong id="sim-mision-tipo" style="color:var(--cyan);">WAYPOINT</strong></span>
+                <span>Distancia al WP: <strong id="sim-mision-dist" style="color:var(--cyan);">0.0 m</strong></span>
+                <span>Progreso Total: <strong id="sim-mision-pct" style="color:var(--amber);">0%</strong></span>
+            </div>
+            <div style="width:100%; background:rgba(255,255,255,0.08); height:8px; border-radius:4px; overflow:hidden;">
+                <div id="sim-mision-progress-bar" style="width:0%; height:100%; background:linear-gradient(90deg, #00f2fe, #10b981); transition:width 0.3s ease;"></div>
             </div>
         </div>
     </div>
@@ -1152,6 +1385,259 @@ footer {
     </div>
 </div>
 
+<!-- =========================================================
+     PESTAÑA 9: VISIÓN IA (YOLOv8) & SIMULACIÓN UNREAL ENGINE
+========================================================= -->
+<div id="tab-vision" class="tab-content">
+    <!-- SUB-BARRA DE ESTADO DE VISIÓN -->
+    <div class="vision-status-bar" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; background:var(--bg-panel); border:1px solid var(--border-color); border-radius:12px; padding:10px 16px; margin-bottom:12px;">
+        <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+            <span style="font-size:14px; font-weight:800; color:var(--cyan);">👁️ SISTEMA TÁCTICO DE VISIÓN IA & SEGUIMIENTO (YOLOv8)</span>
+            <span class="badge online" id="v-badge-fps-ia">0.0 FPS</span>
+            <span class="badge" id="v-badge-res" style="background:#0f172a;">640x480</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <div class="badge" style="background:rgba(244, 63, 94, 0.2); border:1px solid var(--red); color:#ffffff;">
+                🚁 Drones: <strong id="v-badge-drones" style="color:var(--red);">0</strong>
+            </div>
+            <div class="badge" style="background:rgba(16, 185, 129, 0.2); border:1px solid var(--green); color:#ffffff;">
+                👤 Personas: <strong id="v-badge-personas" style="color:var(--green);">0</strong>
+            </div>
+            <div class="badge online" id="v-badge-cam-activa" style="font-weight:800;" title="Cámara activa actualmente en transmisión FPV">📷 FRONTAL</div>
+            <div class="badge offline" id="v-badge-target">🎯 SIN OBJETIVO</div>
+            <div class="badge offline" id="v-badge-modo-track">MODO: OFF</div>
+            <button class="btn-connect" onclick="activarPresetUnrealSITL()" style="background:linear-gradient(135deg, #a855f7, #7c3aed); color:#fff;" title="Vincular con Simulación Unreal Engine + PX4 SITL (UDP 14550)">🎮 Preset Unreal SITL</button>
+        </div>
+    </div>
+
+    <!-- GRID PRINCIPAL DE VISIÓN -->
+    <div class="vision-main-grid">
+        <!-- COLUMNA IZQUIERDA: REPRODUCTOR FPV CON OVERLAY TÁCTICO -->
+        <div class="panel" style="display:flex; flex-direction:column;">
+            <div class="panel-header">
+                <div class="panel-title">📹 TRANSMISIÓN FPV EN TIEMPO REAL & RETÍCULA DJI</div>
+                <div style="display:flex; gap:8px; align-items:center;">
+                    <!-- SELECTOR RÁPIDO DE CÁMARA (FRONTAL / 45° / CENITAL) -->
+                    <div style="display:inline-flex; border:1px solid var(--border-color); border-radius:6px; overflow:hidden; margin-right:4px;">
+                        <button id="btnCamFrontal" class="btn-mode" onclick="cambiarCamara('front')" style="padding:4px 9px; font-size:11px; background:var(--blue-dark); color:#fff; border:none; cursor:pointer;" title="Cámara Frontal FPV (0°)">📷 Frontal</button>
+                        <button id="btnCamAngulo" class="btn-mode" onclick="cambiarCamara('angle')" style="padding:4px 9px; font-size:11px; background:#1e293b; color:var(--text-muted); border:none; cursor:pointer;" title="Cámara Inclinada Vigilancia (-45°)">📐 45°</button>
+                        <button id="btnCamVentral" class="btn-mode" onclick="cambiarCamara('bottom')" style="padding:4px 9px; font-size:11px; background:#1e293b; color:var(--text-muted); border:none; cursor:pointer;" title="Cámara Cenital / Suelo (Nadir -90°)">⬇️ Cenital</button>
+                    </div>
+                    <span id="v-source-tag" style="font-size:11px; color:var(--text-muted); font-family:var(--font-mono);">Fuente: Objetivo Sintético</span>
+                    <button class="btn-mode" onclick="toggleFullscreenVideo()" style="padding:4px 8px; font-size:11px;">⛶ Pantalla Completa</button>
+                    <button class="btn-mode" onclick="togglePiPVideo()" style="padding:4px 8px; font-size:11px;">📺 Mini PiP</button>
+                </div>
+            </div>
+
+            <div class="fpv-viewport-box" id="fpvViewport">
+                <img id="fpvLiveFeed" src="/video_feed" alt="Stream FPV en Vivo" class="fpv-main-stream" onerror="this.src='/video_feed?t='+Date.now()">
+                
+                <div class="fpv-crosshair-hud">
+                    <div class="crosshair-center"></div>
+                    <div class="hud-target-info" id="hudTargetReadout">TARGET: NINGUNO</div>
+                </div>
+            </div>
+
+            <!-- CONTROLES INFERIORES DE VIDEO -->
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:12px; flex-wrap:wrap; gap:10px;">
+                <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                    <button class="btn-mode" onclick="recargarStreamVideo()" title="Reiniciar Stream">🔄 Refrescar Stream</button>
+                    <button class="btn-mode" onclick="cambiarFuenteRapida('sintetico')" style="color:var(--cyan);">🎯 Modo Test Sintético</button>
+                    <button class="btn-mode" onclick="cambiarFuenteRapida('rtsp')" style="color:#38bdf8;">🚁 Cámara Dron Real</button>
+                    <button class="btn-mode" onclick="cambiarFuenteRapida('unreal')" style="color:var(--purple);">🎮 Unreal Stream</button>
+                    <button class="btn-mode" onclick="spawnDronObjetivo()" style="background:linear-gradient(135deg, #10b981, #059669); color:#fff; font-weight:700; border:1px solid #34d399; box-shadow:0 0 10px rgba(16, 185, 129, 0.4);" title="Spawnea o reposiciona un dron objetivo a 7m frente a la cámara para probar detección YOLO">🎯 Spawn Dron Objetivo (Test YOLO)</button>
+                </div>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <label style="font-size:12px; color:var(--text-muted); cursor:pointer;">
+                        <input type="checkbox" id="vAlertsToggle" checked onchange="toggleAlertasAudio(this.checked)"> 🔊 Alertas de Voz (TTS)
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- COLUMNA DERECHA: CONFIGURACIÓN, MODELO YOLO & CONTROL PID -->
+        <div style="display:flex; flex-direction:column; gap:14px;">
+            <!-- CARD 1: SELECCIÓN DE ENTRADA DE VIDEO -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">📡 Configuración de Entrada de Video</div>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:10px; font-size:12px;">
+                    <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:8px;">
+                        <label class="source-radio-box">
+                            <input type="radio" name="videoSource" value="rtsp" checked onchange="onSourceRadioChange(this.value)">
+                            <span>🚁 Dron Real RTSP (Jetson)</span>
+                        </label>
+                        <label class="source-radio-box">
+                            <input type="radio" name="videoSource" value="unreal" onchange="onSourceRadioChange(this.value)">
+                            <span>🎮 Simulación Unreal</span>
+                        </label>
+                        <label class="source-radio-box">
+                            <input type="radio" name="videoSource" value="sintetico" onchange="onSourceRadioChange(this.value)">
+                            <span>🎯 Sintético (Test 3D)</span>
+                        </label>
+                        <label class="source-radio-box">
+                            <input type="radio" name="videoSource" value="webcam" onchange="onSourceRadioChange(this.value)">
+                            <span>📷 Webcam USB / OBS</span>
+                        </label>
+                    </div>
+
+                    <div id="sourceConfigInputs" style="margin-top:6px; display:flex; gap:8px;">
+                        <input type="text" id="vSourceUriInput" class="conn-select" style="flex-grow:1;" placeholder="rtsp://192.168.14.7:8554/cam0" value="rtsp://192.168.14.7:8554/cam0">
+                        <button class="btn-connect" onclick="aplicarFuenteVideo()" style="background:var(--blue-dark);">Conectar Fuente</button>
+                    </div>
+
+                    <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:var(--text-muted); margin-top:4px;">
+                        <input type="checkbox" id="vFlipCameraCheck" checked onchange="toggleFlipCamara(this.checked)" style="accent-color:var(--cyan);">
+                        <span>🔄 Invertir imagen 180° (Cámara Jetson montada invertida)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- CARD 2: MODELO YOLO & DETECCIÓN -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">🧠 Modelo de IA YOLOv8 & Filtros</div>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:12px; font-size:12px;">
+                    <div style="display:flex; gap:8px; align-items:center;">
+                        <label style="color:var(--text-muted); width:95px;">Modelo Activo:</label>
+                        <select id="vModelSelect" class="conn-select" style="flex-grow:1;" onchange="aplicarConfigModelo()">
+                            <option value="drone" selected>🚁 Modelo Especializado Drones (drone_finetuned-3)</option>
+                            <option value="person">👤 Modelo Stock Personas (yolov8n)</option>
+                            <option value="both">⚡ Inferencia Dual (Drones + Personas)</option>
+                        </select>
+                    </div>
+
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <label style="color:var(--text-muted); width:95px;">Confianza Mín:</label>
+                        <input type="range" id="vConfSlider" min="0.10" max="0.90" step="0.05" value="0.30" style="flex-grow:1; accent-color:var(--cyan);" oninput="document.getElementById('vConfVal').innerText = Math.round(this.value * 100) + '%'" onchange="aplicarConfigModelo()">
+                        <span id="vConfVal" style="width:40px; text-align:right; font-family:var(--font-mono); color:var(--cyan); font-weight:700;">30%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 3: CONTROLADOR PID DE IMAGEN -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">🎯 Seguimiento Visual PID (Closed-Loop Tracker)</div>
+                    <div id="v-pid-status-tag" style="font-size:11px; font-weight:700; color:var(--text-muted);">MODO: OFF</div>
+                </div>
+
+                <div style="display:flex; gap:8px; margin-bottom:12px;">
+                    <button id="btnTrackOff" class="btn-mode active" onclick="cambiarModoTrackingUI('OFF')" style="flex:1;">OFF</button>
+                    <button id="btnTrackSim" class="btn-mode" onclick="cambiarModoTrackingUI('SIM')" style="flex:1; border-color:var(--cyan); color:var(--cyan);" title="Calcula salidas del PID y muestra en HUD sin accionar motores">SIM (Visual)</button>
+                    <button id="btnTrackActive" class="btn-mode" onclick="cambiarModoTrackingUI('ACTIVE_TRACK')" style="flex:1; border-color:var(--red); color:#fca5a5;" title="Transmite comandos de velocidad MAVLink al Pixhawk/SITL en modo OFFBOARD">ACTIVE TRACK (MAVLink)</button>
+                </div>
+
+                <div style="display:flex; flex-direction:column; gap:8px; background:rgba(6, 11, 22, 0.6); padding:10px; border-radius:8px; border:1px solid var(--border-color);">
+                    <div>
+                        <div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:3px;">
+                            <span style="color:var(--text-muted);">Error Horizontal Ex (Yaw):</span>
+                            <span id="v-pid-ex" style="font-family:var(--font-mono); font-weight:700; color:var(--cyan);">+0.00</span>
+                        </div>
+                        <div class="pid-bar-track">
+                            <div class="pid-center-marker"></div>
+                            <div id="v-bar-ex" class="pid-bar-fill" style="width:50%;"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:3px;">
+                            <span style="color:var(--text-muted);">Error Vertical Ey (Altura Vz):</span>
+                            <span id="v-pid-ey" style="font-family:var(--font-mono); font-weight:700; color:#facc15;">+0.00</span>
+                        </div>
+                        <div class="pid-bar-track">
+                            <div class="pid-center-marker"></div>
+                            <div id="v-bar-ey" class="pid-bar-fill" style="width:50%; background:#facc15;"></div>
+                        </div>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; font-size:11px; padding-top:4px;">
+                        <span style="color:var(--text-muted);">Error de Distancia (Área):</span>
+                        <span id="v-pid-earea" style="font-family:var(--font-mono); font-weight:700; color:#a855f7;">+0.00</span>
+                    </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:8px; margin-top:10px; text-align:center;">
+                    <div style="background:rgba(15, 23, 42, 0.8); padding:6px; border-radius:6px; border:1px solid var(--border-color);">
+                        <div style="font-size:10px; color:var(--text-muted);">YAW RATE</div>
+                        <div id="v-pid-yaw-rate" style="font-size:12px; font-weight:800; font-family:var(--font-mono); color:var(--cyan);">0.00 rad/s</div>
+                    </div>
+                    <div style="background:rgba(15, 23, 42, 0.8); padding:6px; border-radius:6px; border:1px solid var(--border-color);">
+                        <div style="font-size:10px; color:var(--text-muted);">VEL AVANCE Vx</div>
+                        <div id="v-pid-vx" style="font-size:12px; font-weight:800; font-family:var(--font-mono); color:#10b981;">0.00 m/s</div>
+                    </div>
+                    <div style="background:rgba(15, 23, 42, 0.8); padding:6px; border-radius:6px; border:1px solid var(--border-color);">
+                        <div style="font-size:10px; color:var(--text-muted);">VEL VERTICAL Vz</div>
+                        <div id="v-pid-vz" style="font-size:12px; font-weight:800; font-family:var(--font-mono); color:#facc15;">0.00 m/s</div>
+                    </div>
+                </div>
+
+                <details style="margin-top:10px;">
+                    <summary style="font-size:11px; color:var(--cyan); cursor:pointer; font-weight:700;">⚙️ Sintonizar Ganancias PID (Yaw, Altura, Avance)...</summary>
+                    <div style="margin-top:10px; display:grid; grid-template-columns: repeat(3, 1fr); gap:6px; font-size:11px;">
+                        <div>
+                            <div style="color:var(--text-muted); font-weight:700;">Yaw (Rad/s)</div>
+                            <label>Kp: <input type="number" id="pidYawKp" value="1.2" step="0.1" class="conn-select" style="width:100%;"></label>
+                            <label>Ki: <input type="number" id="pidYawKi" value="0.0" step="0.01" class="conn-select" style="width:100%;"></label>
+                            <label>Kd: <input type="number" id="pidYawKd" value="0.35" step="0.05" class="conn-select" style="width:100%;"></label>
+                        </div>
+                        <div>
+                            <div style="color:var(--text-muted); font-weight:700;">Altura Vz</div>
+                            <label>Kp: <input type="number" id="pidAltKp" value="0.8" step="0.1" class="conn-select" style="width:100%;"></label>
+                            <label>Ki: <input type="number" id="pidAltKi" value="0.05" step="0.01" class="conn-select" style="width:100%;"></label>
+                            <label>Kd: <input type="number" id="pidAltKd" value="0.2" step="0.05" class="conn-select" style="width:100%;"></label>
+                        </div>
+                        <div>
+                            <div style="color:var(--text-muted); font-weight:700;">Avance Vx</div>
+                            <label>Kp: <input type="number" id="pidSpdKp" value="0.9" step="0.1" class="conn-select" style="width:100%;"></label>
+                            <label>Ki: <input type="number" id="pidSpdKi" value="0.06" step="0.01" class="conn-select" style="width:100%;"></label>
+                            <label>Kd: <input type="number" id="pidSpdKd" value="0.2" step="0.05" class="conn-select" style="width:100%;"></label>
+                        </div>
+                    </div>
+                    <div style="display:flex; gap:8px; margin-top:8px;">
+                        <button class="btn-connect" onclick="guardarParametrosPIDVision()" style="flex:1; background:var(--blue-dark); font-size:11px;">Guardar Ganancias</button>
+                        <button class="btn-mode" onclick="resetearPIDVision()" style="flex:1; font-size:11px;">Reset PID</button>
+                    </div>
+                </details>
+            </div>
+
+            <!-- CARD 4: ASISTENTE DE SIMULACIÓN UNREAL ENGINE & PX4 SITL -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">🎮 Conexión y Simulación Unreal Engine + PX4</div>
+                </div>
+                <div style="font-size:12px; color:var(--text-muted); line-height:1.6;">
+                    <p style="margin-bottom:6px;">
+                        Para simulación en <strong>Unreal Engine (AirSim)</strong> con PX4 SITL:
+                    </p>
+                    <ol style="padding-left:18px; margin-bottom:8px;">
+                        <li><strong>Inicia Unreal:</strong> Abre <code>Blocks.exe</code> en tu Escritorio. (AirSim abre su servidor RPC en <code>127.0.0.1:41451</code>).</li>
+                        <li><strong>Inicia PX4 SITL:</strong> En tu terminal WSL Ubuntu ejecuta:
+                            <pre style="background:rgba(0,0,0,0.5); padding:6px; border-radius:4px; margin:4px 0; color:var(--cyan); font-size:11px;">cd ~/PX4-Autopilot && export PX4_SIM_HOSTNAME=127.0.0.1 && make px4_sitl none_iris</pre>
+                        </li>
+                        <li><strong>Conectar:</strong> Haz clic en <button class="btn-mode" onclick="activarPresetUnrealSITL()" style="color:var(--purple); border-color:var(--purple); padding:2px 8px; font-size:11px; vertical-align:middle;">🎮 Activar Preset Unreal</button> para enlazar MAVLink (UDP 14550) y captura AirSim RPC.</li>
+                    </ol>
+                    <div style="background:rgba(168, 85, 247, 0.08); border:1px solid rgba(168, 85, 247, 0.25); border-radius:6px; padding:8px; font-size:11px;">
+                        <strong style="color:var(--purple);">💡 Cámara Virtual AirSim:</strong> La cámara frontal de Unreal Engine se extrae directamente por RPC a resolución nativa y se procesa en tiempo real con YOLOv8.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- VENTANA FLOTANTE MINI PIP DE VIDEO -->
+<div id="pip-video-container" class="pip-video-box" style="display:none;">
+    <div class="pip-header">
+        <span>👁️ FPV EN VIVO (YOLO)</span>
+        <div style="display:flex; gap:6px;">
+            <button onclick="cambiarPestana('tab-vision', document.querySelectorAll('.tab-btn')[8])" title="Ir a Pestaña Completa" class="pip-btn">⛶</button>
+            <button onclick="togglePiPVideo()" title="Cerrar" class="pip-btn">✕</button>
+        </div>
+    </div>
+    <img id="pipVideoFeed" src="" alt="Mini FPV" class="pip-img">
+</div>
+
 <footer>
     <span>🚁 ESTACIÓN TERRENA GCS V3.0 (UBO)</span>
     <span>⚡ PROTOCOLO: MAVLINK V2.0 / PX4 & ARDUPILOT</span>
@@ -1184,8 +1670,8 @@ function cambiarPestana(tabId, btn) {
 /* =========================================================
    2. MAPA GEOESPACIAL TÁCTICO (LEAFLET + TILES OFFLINE)
 ========================================================= */
-const ORIGEN_LAT = -33.467225;
-const ORIGEN_LON = -70.657605;
+const ORIGEN_LAT = -33.4668085;
+const ORIGEN_LON = -70.6548984;
 const mapa = L.map('mapa-container', { zoomControl: true }).setView([ORIGEN_LAT, ORIGEN_LON], 17);
 
 // Soporte de mapa offline local con fallback a OpenStreetMap online
@@ -1205,6 +1691,8 @@ const markerDron = L.circleMarker([ORIGEN_LAT, ORIGEN_LON], {
 }).addTo(mapa);
 
 const trayectoryLine = L.polyline([], { color: '#00f2fe', weight: 3, opacity: 0.8 }).addTo(mapa);
+let ultimaPosicionValida = null;
+let ultimoPuntoTrayectoria = null;
 
 /* =========================================================
    3. PRIMARY FLIGHT DISPLAY (PFD) 60 FPS EN CANVAS
@@ -1479,8 +1967,19 @@ setInterval(async () => {
     } catch (e) {}
 }, 100);
 
+let saltosConsecutivos = 0;
+let ultimoTimestampProcesado = -1;
+
 function procesarDatosTelemetria(d) {
     if (!d) return;
+
+    // Descartar paquetes fuera de orden para evitar parpadeos o saltos retrógrados
+    if (d.tiempo !== undefined && d.tiempo !== null) {
+        if (d.tiempo < ultimoTimestampProcesado && (ultimoTimestampProcesado - d.tiempo < 10.0)) {
+            return;
+        }
+        ultimoTimestampProcesado = d.tiempo;
+    }
 
     // Actualizar estado PFD
     pfdState.pitch = d.actitud ? d.actitud.pitch : 0;
@@ -1494,8 +1993,13 @@ function procesarDatosTelemetria(d) {
     // 1. Badges Encabezado
     const bMav = document.getElementById("badge-mavlink");
     if (d.conectado) {
-        bMav.className = "badge online";
-        bMav.innerText = d.conexion.simulacion ? "● SIMULADOR ACTIVO" : "● MAVLINK ACTIVO";
+        if (d.conexion && d.conexion.estado && d.conexion.estado.includes("Esperando")) {
+            bMav.className = "badge mode";
+            bMav.innerText = `● ${d.conexion.estado}`;
+        } else {
+            bMav.className = "badge online";
+            bMav.innerText = d.conexion && d.conexion.simulacion ? "● SIMULADOR ACTIVO" : "● MAVLINK ACTIVO";
+        }
     } else {
         bMav.className = "badge offline";
         bMav.innerText = "● MAVLINK BUSCANDO";
@@ -1505,12 +2009,21 @@ function procesarDatosTelemetria(d) {
     document.getElementById("badge-modo").innerText = `MODO: ${pfdState.mode}`;
     
     const bArm = document.getElementById("badge-armado");
+    const btnArmQ = document.getElementById("btnArmQuick");
     if (pfdState.armed) {
         bArm.className = "badge armed";
         bArm.innerText = "⚠️ ARMADO";
+        if (btnArmQ) {
+            btnArmQ.className = "btn-flight btn-arm armed";
+            btnArmQ.innerHTML = "🛑 DESARMAR";
+        }
     } else {
         bArm.className = "badge disarmed";
         bArm.innerText = "● DESARMADO";
+        if (btnArmQ) {
+            btnArmQ.className = "btn-flight btn-arm";
+            btnArmQ.innerHTML = "⚡ ARMAR";
+        }
     }
 
     if (d.gps) {
@@ -1589,11 +2102,137 @@ function procesarDatosTelemetria(d) {
         document.getElementById("s-drop").innerText = d.sistema.perdida_com;
     }
 
-    // 6. Mapa y Trayectoria
+    // 5.b Sub-sistema de Visión IA & YOLO
+    if (d.vision) {
+        const v = d.vision;
+        const bVision = document.getElementById("badge-vision");
+        if (bVision) {
+            bVision.className = v.conectado ? "badge online" : "badge offline";
+            bVision.innerText = v.conectado ? `👁️ VISIÓN: ${String(v.fuente).toUpperCase()}` : "👁️ VISIÓN OFF";
+        }
+        const bDrones = document.getElementById("v-badge-drones");
+        if (bDrones) bDrones.innerText = v.conteo_drones || 0;
+        const bPersons = document.getElementById("v-badge-personas");
+        if (bPersons) bPersons.innerText = v.conteo_personas || 0;
+        const bFpsIa = document.getElementById("v-badge-fps-ia");
+        if (bFpsIa) bFpsIa.innerText = `${v.fps_ia || 0} FPS`;
+        const bCamAct = document.getElementById("v-badge-cam-activa");
+        if (bCamAct && v.camara_activa) {
+            if (v.camara_activa === "bottom") {
+                bCamAct.className = "badge mode";
+                bCamAct.innerText = "⬇️ CENITAL (NADIR)";
+            } else {
+                bCamAct.className = "badge online";
+                bCamAct.innerText = "📷 FRONTAL";
+            }
+        }
+        const bTarget = document.getElementById("v-badge-target");
+        if (bTarget) {
+            if (v.objetivo_fijado) {
+                bTarget.className = "badge armed";
+                bTarget.innerText = `🎯 TARGET #${v.target_id !== null ? v.target_id : 'LOCK'}`;
+            } else {
+                bTarget.className = "badge offline";
+                bTarget.innerText = "🎯 SIN OBJETIVO";
+            }
+        }
+        const bModoTrack = document.getElementById("v-badge-modo-track");
+        if (bModoTrack) {
+            bModoTrack.innerText = `MODO: ${v.modo_seguimiento || 'OFF'}`;
+            bModoTrack.className = (v.modo_seguimiento === 'ACTIVE_TRACK') ? 'badge armed' : ((v.modo_seguimiento === 'SIM') ? 'badge online' : 'badge offline');
+        }
+        const pidTag = document.getElementById("v-pid-status-tag");
+        if (pidTag) pidTag.innerText = `MODO: ${v.modo_seguimiento || 'OFF'}`;
+
+        if (v.pid_err) {
+            const exElem = document.getElementById("v-pid-ex");
+            if (exElem) exElem.innerText = (v.pid_err.ex >= 0 ? "+" : "") + Number(v.pid_err.ex || 0).toFixed(2);
+            const eyElem = document.getElementById("v-pid-ey");
+            if (eyElem) eyElem.innerText = (v.pid_err.ey >= 0 ? "+" : "") + Number(v.pid_err.ey || 0).toFixed(2);
+            const eaElem = document.getElementById("v-pid-earea");
+            if (eaElem) eaElem.innerText = (v.pid_err.earea >= 0 ? "+" : "") + Number(v.pid_err.earea || 0).toFixed(2);
+            
+            const barEx = document.getElementById("v-bar-ex");
+            if (barEx) barEx.style.width = Math.min(Math.max((Number(v.pid_err.ex || 0) + 1) * 50, 0), 100) + "%";
+            const barEy = document.getElementById("v-bar-ey");
+            if (barEy) barEy.style.width = Math.min(Math.max((Number(v.pid_err.ey || 0) + 1) * 50, 0), 100) + "%";
+        }
+
+        if (v.pid_out) {
+            const yawElem = document.getElementById("v-pid-yaw-rate");
+            if (yawElem) yawElem.innerText = `${Number(v.pid_out.yaw_rate || 0).toFixed(2)} rad/s`;
+            const vxElem = document.getElementById("v-pid-vx");
+            if (vxElem) vxElem.innerText = `${Number(v.pid_out.vx || 0).toFixed(2)} m/s`;
+            const vzElem = document.getElementById("v-pid-vz");
+            if (vzElem) vzElem.innerText = `${Number(v.pid_out.vz || 0).toFixed(2)} m/s`;
+        }
+
+        const hudTarget = document.getElementById("hudTargetReadout");
+        if (hudTarget) {
+            hudTarget.innerText = v.objetivo_fijado ? `TARGET LOCK #${v.target_id !== null ? v.target_id : 1}` : "TARGET: BUSCANDO...";
+            hudTarget.style.color = v.objetivo_fijado ? "var(--cyan)" : "var(--text-muted)";
+        }
+
+        if (v.alerta_activa) {
+            dispararAlertaSonora(v.mensaje_alerta || "Dron detectado");
+        }
+    }
+
+    // 6. Mapa y Trayectoria con Filtro de Glitches y Decimación
     if (d.gps && d.gps.lat !== 0 && d.gps.lon !== 0 && Math.abs(d.gps.lat) > 1) {
         const nuevaPos = [d.gps.lat, d.gps.lon];
-        markerDron.setLatLng(nuevaPos);
-        trayectoryLine.addLatLng(nuevaPos);
+        
+        // Filtro de salto espurio: Si la distancia supera 50m en un único paquete (50ms), ignorar glitch
+        let esValido = true;
+        if (ultimaPosicionValida) {
+            const dLat = (d.gps.lat - ultimaPosicionValida[0]) * 111139.0;
+            const dLon = (d.gps.lon - ultimaPosicionValida[1]) * 111139.0 * Math.cos(d.gps.lat * Math.PI / 180.0);
+            const distSalto = Math.hypot(dLat, dLon);
+            if (distSalto > 50.0) {
+                saltosConsecutivos++;
+                // Si el salto se mantiene constante por 3 o más paquetes, aceptar la nueva posición legítima
+                if (saltosConsecutivos < 3) {
+                    esValido = false;
+                } else {
+                    saltosConsecutivos = 0;
+                }
+            } else {
+                saltosConsecutivos = 0;
+            }
+        }
+
+        if (esValido) {
+            ultimaPosicionValida = nuevaPos;
+            markerDron.setLatLng(nuevaPos);
+
+            // Añadir a trayectoria solo si se desplazó al menos 0.8 metros (evita saturar Leaflet)
+            if (!ultimoPuntoTrayectoria) {
+                trayectoryLine.addLatLng(nuevaPos);
+                ultimoPuntoTrayectoria = nuevaPos;
+            } else {
+                const dLatT = (nuevaPos[0] - ultimoPuntoTrayectoria[0]) * 111139.0;
+                const dLonT = (nuevaPos[1] - ultimoPuntoTrayectoria[1]) * 111139.0 * Math.cos(nuevaPos[0] * Math.PI / 180.0);
+                if (Math.hypot(dLatT, dLonT) >= 0.8) {
+                    trayectoryLine.addLatLng(nuevaPos);
+                    ultimoPuntoTrayectoria = nuevaPos;
+                }
+            }
+
+            // Marcador del dron en mapa interactivo de misiones
+            if (mapaMision) {
+                if (!markerDronMision) {
+                    const droneIcon = L.divIcon({
+                        html: '<div style="background:#f43f5e; color:#fff; font-size:12px; border-radius:50%; width:22px; height:22px; display:flex; align-items:center; justify-content:center; border:2px solid #00f2fe; box-shadow:0 0 10px #00f2fe;">🚁</div>',
+                        className: '',
+                        iconSize: [22, 22],
+                        iconAnchor: [11, 11]
+                    });
+                    markerDronMision = L.marker(nuevaPos, { icon: droneIcon, zIndexOffset: 1000 }).addTo(mapaMision);
+                } else {
+                    markerDronMision.setLatLng(nuevaPos);
+                }
+            }
+        }
     }
 
     // 7. Historial y Gráficos (evitar duplicados y truncado prematuro)
@@ -1773,6 +2412,41 @@ async function toggleConexion() {
         estaConectado = false;
         btn.className = "btn-connect";
         btn.innerText = "🔌 Conectar";
+        const btnSim = document.getElementById("btnConectarSim");
+        if (btnSim) btnSim.innerText = "🎮 Conectar Simulación";
+    }
+}
+
+async function conectarSimulacionDirecta() {
+    const btn = document.getElementById("btnConectarSim");
+    const origText = btn ? btn.innerText : "";
+    if (btn) btn.innerText = "⏳ Conectando...";
+    try {
+        logConsola("🎮 Conectando a Simulación Unreal Engine (AirSim RPC 41451)...", "cyan");
+        const res = await fetch("/api/conectar", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ puerto: "AIRSIM_RPC" })
+        });
+        const d = await res.json();
+        
+        cambiarFuenteRapida("unreal");
+        
+        const sel = document.getElementById("puertoSelect");
+        if (sel) sel.value = "AIRSIM_RPC";
+        
+        const bCon = document.getElementById("btnConectar");
+        if (bCon) {
+            bCon.className = "btn-connect connected";
+            bCon.innerText = "🛑 Desconectar";
+            estaConectado = true;
+        }
+        
+        if (btn) btn.innerText = "🎮 Simulación Conectada";
+        logConsola("✅ " + d.mensaje, "green");
+    } catch(err) {
+        logConsola("Error al conectar simulación: " + err, "red");
+        if (btn) btn.innerText = origText || "🎮 Conectar Simulación";
     }
 }
 
@@ -1795,7 +2469,7 @@ function cambiarVelocidadSim(vel) {
 }
 
 /* =========================================================
-   8. COMANDOS DE VUELO Y SEGURIDAD
+   8. COMANDOS DE VUELO Y SEGURIDAD (ARM, TAKEOFF, LAND, RTL)
 ========================================================= */
 function enviarCambioModo(modo) {
     fetch(`/api/modo/${modo}`, { method: "POST" })
@@ -1803,14 +2477,81 @@ function enviarCambioModo(modo) {
         .then(d => logConsola(`[Modo] ${d.mensaje}`, d.status === 'ok' ? 'success' : 'danger'));
 }
 
-function modalArmar() {
+async function ejecutarArmarDesarmar() {
     const armar = !pfdState.armed;
     const accion = armar ? "ARMAR" : "DESARMAR";
-    if (confirm(`¿Confirmar comando para ${accion} los motores del Pixhawk?`)) {
-        fetch(`/api/armar/${armar ? 1 : 0}`, { method: "POST" })
-            .then(r => r.json())
-            .then(d => logConsola(`[Seguridad] ${d.mensaje}`, 'warn'));
+    const btn = document.getElementById("btnArmQuick");
+    if (btn) btn.disabled = true;
+    
+    logConsola(`[Vuelo] Transmitiendo comando para ${accion} motores...`, 'warn');
+    try {
+        const res = await fetch(`/api/armar/${armar ? 1 : 0}`, { method: "POST" });
+        const d = await res.json();
+        logConsola(`[Vuelo] ${d.mensaje}`, d.status === 'ok' ? 'success' : 'danger');
+    } catch (e) {
+        logConsola(`[Error] Fallo al enviar ${accion}: ${e}`, 'danger');
+    } finally {
+        if (btn) btn.disabled = false;
     }
+}
+
+async function ejecutarDespegue() {
+    const altStr = prompt("Ingrese la altitud de despegue en metros:", "15");
+    if (!altStr) return;
+    const alt = parseFloat(altStr);
+    if (isNaN(alt) || alt <= 0 || alt > 120) {
+        alert("Altitud inválida (debe estar entre 1 y 120 metros)");
+        return;
+    }
+    
+    const btn = document.getElementById("btnTakeoffQuick");
+    if (btn) btn.disabled = true;
+    logConsola(`[Vuelo] 🛫 Transmitiendo secuencia de despegue automático a ${alt}m...`, 'warn');
+    try {
+        const res = await fetch(`/api/takeoff?alt=${alt}`, { method: "POST" });
+        const d = await res.json();
+        logConsola(`[Vuelo] ${d.mensaje}`, d.status === 'ok' ? 'success' : 'danger');
+    } catch (e) {
+        logConsola(`[Error] Fallo en comando de despegue: ${e}`, 'danger');
+    } finally {
+        if (btn) btn.disabled = false;
+    }
+}
+
+async function ejecutarAterrizaje() {
+    if (!confirm("¿Confirmar aterrizaje automático (LAND) en la posición actual?")) return;
+    const btn = document.getElementById("btnLandQuick");
+    if (btn) btn.disabled = true;
+    logConsola("[Vuelo] 🛬 Transmitiendo comando de aterrizaje (LAND)...", 'warn');
+    try {
+        const res = await fetch("/api/land", { method: "POST" });
+        const d = await res.json();
+        logConsola(`[Vuelo] ${d.mensaje}`, d.status === 'ok' ? 'success' : 'danger');
+    } catch (e) {
+        logConsola(`[Error] Fallo al enviar aterrizaje: ${e}`, 'danger');
+    } finally {
+        if (btn) btn.disabled = false;
+    }
+}
+
+async function ejecutarRTL() {
+    if (!confirm("¿Confirmar retorno al punto de despegue (RTL)?")) return;
+    const btn = document.getElementById("btnRtlQuick");
+    if (btn) btn.disabled = true;
+    logConsola("[Vuelo] 🏠 Transmitiendo comando Return to Launch (RTL)...", 'warn');
+    try {
+        const res = await fetch("/api/rtl", { method: "POST" });
+        const d = await res.json();
+        logConsola(`[Vuelo] ${d.mensaje}`, d.status === 'ok' ? 'success' : 'danger');
+    } catch (e) {
+        logConsola(`[Error] Fallo al enviar RTL: ${e}`, 'danger');
+    } finally {
+        if (btn) btn.disabled = false;
+    }
+}
+
+function modalArmar() {
+    ejecutarArmarDesarmar();
 }
 
 function paradaEmergencia() {
@@ -1916,6 +2657,8 @@ let mapaMision = null;
 let misionSetpoints = [];
 let misionMarkers = [];
 let misionPolyline = null;
+let markerDronMision = null;
+let simMisionTimer = null;
 
 function initMapaMision() {
     if (!mapaMision) {
@@ -2170,6 +2913,78 @@ async function iniciarMisionAuto() {
     }
 }
 
+async function ejecutarMisionUnreal() {
+    if (misionSetpoints.length === 0) {
+        alert("Agrega primero al menos un setpoint haciendo clic en el mapa de Parque O'Higgins.");
+        return;
+    }
+    await guardarMisionBackend();
+
+    try {
+        logConsola("Iniciando ejecución autónoma de setpoints en Unreal Engine (Parque O'Higgins)...", "info");
+        const res = await fetch("/api/mision/ejecutar_simulacion", { method: "POST" });
+        const d = await res.json();
+        if (d.status === "ok") {
+            logConsola("🎮 " + d.mensaje, "green");
+            document.getElementById("panel-sim-mision").style.display = "block";
+            document.getElementById("btnAbortarSim").style.display = "inline-block";
+            iniciarMonitoreoSimMision();
+        } else {
+            alert(d.mensaje);
+            logConsola(d.mensaje, "danger");
+        }
+    } catch (e) {
+        alert("Error al iniciar misión en Unreal: " + e);
+    }
+}
+
+async function abortarMisionUnreal() {
+    try {
+        const res = await fetch("/api/mision/abortar_simulacion", { method: "POST" });
+        const d = await res.json();
+        logConsola("🛑 " + d.mensaje, "warn");
+    } catch (e) {
+        alert("Error al abortar: " + e);
+    }
+}
+
+function iniciarMonitoreoSimMision() {
+    if (simMisionTimer) clearInterval(simMisionTimer);
+    simMisionTimer = setInterval(async () => {
+        try {
+            const res = await fetch("/api/mision/estado_simulacion");
+            const st = await res.json();
+
+            document.getElementById("sim-mision-status-txt").innerText = st.estado_texto || "";
+            document.getElementById("sim-mision-punto").innerText = `${st.indice_actual} / ${st.total_puntos}`;
+            document.getElementById("sim-mision-tipo").innerText = st.tipo_actual || "WAYPOINT";
+            document.getElementById("sim-mision-dist").innerText = `${Number(st.distancia_restante || 0).toFixed(1)} m`;
+            document.getElementById("sim-mision-pct").innerText = `${st.progreso_pct}%`;
+            document.getElementById("sim-mision-progress-bar").style.width = `${st.progreso_pct}%`;
+
+            // Resaltar en la tabla el waypoint en ejecución activa
+            const filas = document.querySelectorAll("#tabla-mision-body tr");
+            filas.forEach((tr, i) => {
+                if (i === st.indice_actual - 1) {
+                    tr.style.background = "rgba(0, 242, 254, 0.25)";
+                    tr.style.boxShadow = "inset 0 0 10px rgba(0, 242, 254, 0.35)";
+                } else {
+                    tr.style.background = "transparent";
+                    tr.style.boxShadow = "none";
+                }
+            });
+
+            if (!st.activa) {
+                clearInterval(simMisionTimer);
+                simMisionTimer = null;
+                document.getElementById("btnAbortarSim").style.display = "none";
+            }
+        } catch (e) {
+            console.warn("Error leyendo estado de simulación:", e);
+        }
+    }, 350);
+}
+
 async function exportarPlanQGC() {
     try {
         const res = await fetch("/api/mision/exportar_qgc");
@@ -2217,6 +3032,286 @@ async function importarPlanQGC(input) {
         reader.readAsText(file);
     } catch (e) {
         alert("Error al cargar archivo: " + e);
+    }
+}
+
+/* =========================================================
+   8. LÓGICA DE CONTROL DE VISIÓN IA, FPV & UNREAL
+========================================================= */
+let audioAlertPlaying = false;
+let audioCooldownTimer = 0;
+
+function dispararAlertaSonora(msg) {
+    const ahora = Date.now();
+    if (ahora - audioCooldownTimer < 4000) return;
+    audioCooldownTimer = ahora;
+
+    const toggle = document.getElementById("vAlertsToggle");
+    if (toggle && !toggle.checked) return;
+
+    if ('speechSynthesis' in window) {
+        try {
+            const utterance = new SpeechSynthesisUtterance(msg);
+            utterance.lang = 'es-ES';
+            utterance.rate = 1.1;
+            window.speechSynthesis.speak(utterance);
+        } catch (e) {}
+    } else {
+        try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.frequency.setValueAtTime(880, ctx.currentTime);
+            gain.gain.setValueAtTime(0.3, ctx.currentTime);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.25);
+        } catch (e) {}
+    }
+}
+
+function onSourceRadioChange(val) {
+    const uriInput = document.getElementById("vSourceUriInput");
+    const tag = document.getElementById("v-source-tag");
+    
+    if (val === "sintetico") {
+        uriInput.value = "";
+        uriInput.disabled = true;
+        if (tag) tag.innerText = "Fuente: Objetivo Sintético";
+    } else if (val === "rtsp") {
+        uriInput.value = "rtsp://192.168.14.7:8554/cam0";
+        uriInput.disabled = false;
+        if (tag) tag.innerText = "Fuente: RTSP Dron Real (Jetson)";
+    } else if (val === "unreal") {
+        uriInput.value = "AirSim RPC (localhost:41451)";
+        uriInput.disabled = false;
+        if (tag) tag.innerText = "Fuente: Simulación Unreal (AirSim RPC)";
+    } else if (val === "webcam") {
+        uriInput.value = "0";
+        uriInput.disabled = false;
+        if (tag) tag.innerText = "Fuente: Webcam USB (0)";
+    }
+    aplicarFuenteVideo();
+}
+
+async function toggleFlipCamara(activo) {
+    try {
+        const res = await fetch("/api/vision/toggle_flip", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ flip: activo })
+        });
+        const d = await res.json();
+        logConsola(d.mensaje, "info");
+    } catch (e) {
+        logConsola("Error al cambiar orientación de cámara: " + e, "red");
+    }
+}
+
+function cambiarFuenteRapida(tipo) {
+    const radio = document.querySelector(`input[name="videoSource"][value="${tipo}"]`);
+    if (radio) {
+        radio.checked = true;
+        onSourceRadioChange(tipo);
+    }
+}
+
+async function aplicarFuenteVideo() {
+    const tipo = document.querySelector('input[name="videoSource"]:checked').value;
+    const uri = document.getElementById("vSourceUriInput").value.trim();
+    
+    const payload = { fuente_tipo: tipo };
+    if (tipo === "rtsp") payload.rtsp_url = uri;
+    if (tipo === "unreal") payload.unreal_url = uri;
+    if (tipo === "webcam") payload.webcam_idx = parseInt(uri) || 0;
+    
+    try {
+        const res = await fetch("/api/vision/config", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        });
+        const d = await res.json();
+        recargarStreamVideo();
+        logConsola(`Fuente de video cambiada a: ${tipo}`, "green");
+    } catch (e) {
+        logConsola("Error cambiando fuente de video: " + e, "red");
+    }
+}
+
+async function aplicarConfigModelo() {
+    const modelo = document.getElementById("vModelSelect").value;
+    const conf = parseFloat(document.getElementById("vConfSlider").value);
+    
+    try {
+        await fetch("/api/vision/config", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ modelo_activo: modelo, confianza: conf })
+        });
+        logConsola(`Modelo IA actualizado: ${modelo} (Confianza: ${(conf*100).toFixed(0)}%)`, "info");
+    } catch (e) {}
+}
+
+async function cambiarModoTrackingUI(modo) {
+    try {
+        const res = await fetch("/api/vision/tracking/modo", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ modo: modo })
+        });
+        const d = await res.json();
+        
+        document.getElementById("btnTrackOff").classList.toggle("active", modo === "OFF");
+        document.getElementById("btnTrackSim").classList.toggle("active", modo === "SIM");
+        document.getElementById("btnTrackActive").classList.toggle("active", modo === "ACTIVE_TRACK");
+        
+        logConsola(`Modo de seguimiento PID cambiado a: ${modo}`, modo === "ACTIVE_TRACK" ? "warn" : "green");
+    } catch (e) {
+        logConsola("Error al cambiar modo de seguimiento: " + e, "red");
+    }
+}
+
+async function guardarParametrosPIDVision() {
+    const payload = {
+        yaw_kp: parseFloat(document.getElementById("pidYawKp").value),
+        yaw_ki: parseFloat(document.getElementById("pidYawKi").value),
+        yaw_kd: parseFloat(document.getElementById("pidYawKd").value),
+        alt_kp: parseFloat(document.getElementById("pidAltKp").value),
+        alt_ki: parseFloat(document.getElementById("pidAltKi").value),
+        alt_kd: parseFloat(document.getElementById("pidAltKd").value),
+        spd_kp: parseFloat(document.getElementById("pidSpdKp").value),
+        spd_ki: parseFloat(document.getElementById("pidSpdKi").value),
+        spd_kd: parseFloat(document.getElementById("pidSpdKd").value)
+    };
+    try {
+        const res = await fetch("/api/vision/tracking/pid", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        });
+        const d = await res.json();
+        alert("✅ Ganancias del PID de imagen actualizadas.");
+    } catch (e) {
+        alert("Error guardando PID: " + e);
+    }
+}
+
+async function resetearPIDVision() {
+    try {
+        await fetch("/api/vision/tracking/reset", { method: "POST" });
+        logConsola("Controlador PID de imagen reseteado.", "info");
+    } catch (e) {}
+}
+
+async function activarPresetUnrealSITL() {
+    try {
+        const res = await fetch("/api/simulacion/unreal_preset", { method: "POST" });
+        const d = await res.json();
+        
+        document.getElementById("puertoSelect").value = "udp:127.0.0.1:14550";
+        cambiarFuenteRapida("unreal");
+        cambiarModoTrackingUI("SIM");
+        cambiarPestana("tab-vision", document.querySelectorAll(".tab-btn")[8]);
+        
+        alert("🎮 Preset Simulación Unreal activado: Conectando MAVLink a UDP 14550 y Stream de video en modo SIM.");
+        logConsola(d.mensaje, "green");
+    } catch (e) {
+        alert("Error al activar preset Unreal: " + e);
+    }
+}
+
+function recargarStreamVideo() {
+    const imgMain = document.getElementById("fpvLiveFeed");
+    if (imgMain) imgMain.src = "/video_feed?t=" + Date.now();
+    const pip = document.getElementById("pipvideo-container") || document.getElementById("pip-video-container");
+    const imgPip = document.getElementById("pipVideoFeed");
+    if (imgPip && pip && pip.style.display !== "none" && pip.style.display !== "") {
+        imgPip.src = "/video_feed?t=" + Date.now();
+    }
+}
+
+function togglePiPVideo() {
+    const pip = document.getElementById("pipvideo-container") || document.getElementById("pip-video-container");
+    const pipImg = document.getElementById("pipVideoFeed");
+    if (pip) {
+        const isHidden = (pip.style.display === "none" || pip.style.display === "");
+        pip.style.display = isHidden ? "block" : "none";
+        if (pipImg) {
+            pipImg.src = isHidden ? "/video_feed" : "";
+        }
+    }
+}
+
+function toggleFullscreenVideo() {
+    const vp = document.getElementById("fpvViewport");
+    if (!document.fullscreenElement) {
+        if (vp.requestFullscreen) vp.requestFullscreen();
+    } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+    }
+}
+
+function toggleAlertasAudio(activas) {
+    logConsola(`Alertas audibles ${activas ? 'activadas' : 'silenciadas'}.`, "info");
+}
+
+/* =========================================================
+   9. MULTICÁMARA Y DRON OBJETIVO SIMULADO (YOLO TEST)
+========================================================= */
+async function cambiarCamara(tipo) {
+    try {
+        const res = await fetch(`/api/vision/camara/${tipo}`, { method: "POST" });
+        const d = await res.json();
+        const btnF = document.getElementById("btnCamFrontal");
+        const btnA = document.getElementById("btnCamAngulo");
+        const btnB = document.getElementById("btnCamVentral");
+        const badgeCam = document.getElementById("v-badge-cam-activa");
+        
+        [btnF, btnA, btnB].forEach(b => {
+            if (b) { b.style.background = "#1e293b"; b.style.color = "var(--text-muted)"; }
+        });
+        
+        if (tipo === "front") {
+            if (btnF) { btnF.style.background = "var(--blue-dark)"; btnF.style.color = "#fff"; }
+            if (badgeCam) { badgeCam.innerText = "📷 FRONTAL"; badgeCam.className = "badge online"; }
+        } else if (tipo === "angle") {
+            if (btnA) { btnA.style.background = "var(--blue-dark)"; btnA.style.color = "#fff"; }
+            if (badgeCam) { badgeCam.innerText = "📐 INCLINADA 45°"; badgeCam.className = "badge mode"; }
+        } else {
+            if (btnB) { btnB.style.background = "var(--blue-dark)"; btnB.style.color = "#fff"; }
+            if (badgeCam) { badgeCam.innerText = "⬇️ CENITAL (-90°)"; badgeCam.className = "badge mode"; }
+        }
+        recargarStreamVideo();
+        logConsola(d.mensaje, "green");
+    } catch (e) {
+        logConsola("Error al cambiar cámara: " + e, "danger");
+    }
+}
+
+async function spawnDronObjetivo() {
+    const distStr = prompt("Distancia en metros frente al dron principal (ej: 6 u 8):", "7");
+    if (!distStr) return;
+    const dist = parseFloat(distStr) || 7.0;
+    
+    logConsola(`[Simulación] 🎯 Posicionando dron objetivo a ${dist}m...`, "warn");
+    try {
+        const res = await fetch("/api/simulacion/target_drone", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ distancia: dist, altitud: 0.5 })
+        });
+        const d = await res.json();
+        if (d.status === "ok") {
+            logConsola("✅ " + d.mensaje, "success");
+            alert("🎯 " + d.mensaje + "\n\nObserva el visor FPV con YOLO activo para ver el recuadro de detección del dron objetivo.");
+        } else {
+            logConsola("❌ " + d.mensaje, "danger");
+            alert(d.mensaje);
+        }
+    } catch (e) {
+        logConsola("Error posicionando dron objetivo: " + e, "danger");
     }
 }
 </script>
