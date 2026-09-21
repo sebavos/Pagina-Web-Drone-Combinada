@@ -37,7 +37,7 @@ if not exist ".git" (
     echo [2/4] Inicializando repositorio Git local...
     "%GIT_EXE%" init
     "%GIT_EXE%" branch -M main
-    "%GIT_EXE%" remote add origin https://github.com/Javiermoralesubo/Telemetria_Holybro_x650.git
+    "%GIT_EXE%" remote add origin https://github.com/sebavos/Pagina-Web-Drone-Combinada.git
 ) else (
     echo [2/4] Repositorio Git local verificado.
 )
@@ -53,7 +53,7 @@ if %ERRORLEVEL% EQU 0 (
     echo.
     echo ====================================================================
     echo   [EXITO] Proyecto subido correctamente a GitHub!
-    echo   https://github.com/Javiermoralesubo/Telemetria_Holybro_x650
+    echo   https://github.com/sebavos/Pagina-Web-Drone-Combinada
     echo ====================================================================
 ) else (
     echo.
